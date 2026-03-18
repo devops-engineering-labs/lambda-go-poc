@@ -1,0 +1,26 @@
+# Package the Lambda function code
+data "archive_file" "bootstrap" {
+  type        = "zip"
+  source_file = "../build/bootstrap"
+  output_path = "../output/function.zip"
+}
+
+# Lambda function
+resource "aws_lambda_function" "sftp_broker" {
+  filename      = data.archive_file.bootstrap.output_path
+  function_name = var.lambda.function_name
+  role          = aws_iam_role.sftp_broker_role.arn
+  handler       = var.lambda.handler
+  code_sha256   = data.archive_file.bootstrap.output_base64sha256
+
+  memory_size   = var.lambda.memory_size
+  timeout       = var.lambda.timeout
+  runtime       = var.lambda.runtime
+  architectures = var.lambda.architectures
+
+  ephemeral_storage {
+    size = var.lambda.ephemeral_storage.size
+  }
+
+  tags = var.tags
+}
