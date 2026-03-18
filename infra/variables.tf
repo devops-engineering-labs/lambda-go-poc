@@ -1,7 +1,7 @@
 variable "aws_region" {
   description = "value"
-  type = string
-  sensitive = false
+  type        = string
+  sensitive   = false
 
   default = "us-east-1"
 }
@@ -9,7 +9,7 @@ variable "aws_region" {
 variable "assume_role" {
   description = "value"
   type = object({
-    role_arn = string
+    role_arn    = string
     external_id = string
   })
   sensitive = true
@@ -34,7 +34,7 @@ variable "lambda" {
 variable "tags" {
   description = "Map of tags to be applied to AWS resources for identification, organization, and cost allocation."
   type        = map(string)
-  sensitive = false
+  sensitive   = false
 
   default = {
     Environment = "production"
