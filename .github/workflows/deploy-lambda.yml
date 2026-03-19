@@ -56,6 +56,16 @@ jobs:
           ls -lh build/bootstrap
           file build/bootstrap
 
+      - name: Package Lambda Artifact
+        run: |
+          cd build
+          zip -j ../output/function.zip bootstrap
+      
+      - name: Validate Packaged Artifact
+        run: |
+          ls -lh output/function.zip
+          unzip -l output/function.zip
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
@@ -110,7 +120,7 @@ jobs:
           name: tfplan-artifact
           path: |
             infra/tfplan
-            build/bootstrap
+            output/function.zip
           if-no-files-found: error
           retention-days: 7
 
@@ -146,24 +156,12 @@ jobs:
         with:
           name: tfplan-artifact
           path: .
-
-      - name: Package Lambda Artifact
-        run: |
-          mkdir -p output
-          cd build
-          zip -j ../output/function.zip bootstrap
       
-      - name: Validate Packaged Artifact
-        run: |
-          ls -lh output/function.zip
-          unzip -l output/function.zip
-
       - name: Ensure Required Files and Directories
         run: |
           ls -R .
-          ls -lh build/bootstrap
+          ls -lh output/function.zip
           ls -lh infra/tfplan
-          ls -ld output
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
