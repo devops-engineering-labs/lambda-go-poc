@@ -8,12 +8,6 @@ on:
 
 permissions:
   contents: read
-
-# env:
-#   AWS_REGION: us-east-1
-#   GO_VERSION: "1.26.1"
-#   TF_VERSION: "1.12.2"
-
 jobs:
   plan:
     name: Terraform Plan
@@ -154,7 +148,7 @@ jobs:
           path: .
 
       - name: Valida se não sobrescreveu pasta infra
-        run: ls -lha && ls -lha ./infra
+        run: ls -lha && ls -lha ./infra && ls -lha ./build
 
       - name: Ensure Required Files and Directories
         run: |

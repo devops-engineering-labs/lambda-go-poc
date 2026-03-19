@@ -23,4 +23,10 @@ resource "aws_lambda_function" "sftp_broker" {
   }
 
   tags = var.tags
+
+  depends_on = [
+    aws_iam_role_policy.sftp_broker_s3_policy,
+    aws_iam_role_policy.sftp_broker_secrets_policy,
+    aws_iam_role_policy_attachment.sftp_broker_AWSLambdaBasicExecutionRole
+  ]
 }
