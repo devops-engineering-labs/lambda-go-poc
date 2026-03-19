@@ -1,17 +1,17 @@
 # Package the Lambda function code
-data "archive_file" "bootstrap" {
-  type        = "zip"
-  source_file = "../build/bootstrap"
-  output_path = "../output/function.zip"
-}
+# data "archive_file" "bootstrap" {
+#   type        = "zip"
+#   source_file = "../build/bootstrap"
+#   output_path = "../output/function.zip"
+# }
 
 # Lambda function
 resource "aws_lambda_function" "sftp_broker" {
-  filename      = data.archive_file.bootstrap.output_path
+  filename      = "../output/function.zip"
   function_name = var.lambda.function_name
   role          = aws_iam_role.sftp_broker_role.arn
   handler       = var.lambda.handler
-  code_sha256   = data.archive_file.bootstrap.output_base64sha256
+  code_sha256   = filebase64sha256("../output/function.zip")
 
   memory_size   = var.lambda.memory_size
   timeout       = var.lambda.timeout

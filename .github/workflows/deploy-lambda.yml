@@ -147,12 +147,19 @@ jobs:
           name: tfplan-artifact
           path: .
 
-      - name: Valida se não sobrescreveu pasta infra
-        run: ls -lha && ls -lha ./infra && ls -lha ./build
+      - name: Package Lambda Artifact
+        run: |
+          mkdir -p output
+          cd build
+          zip -j ../output/function.zip bootstrap
+      
+      - name: Validate Packaged Artifact
+        run: |
+          ls -lh output/function.zip
+          unzip -l output/function.zip
 
       - name: Ensure Required Files and Directories
         run: |
-          mkdir -p output
           ls -R .
           ls -lh build/bootstrap
           ls -lh infra/tfplan
