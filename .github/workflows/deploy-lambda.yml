@@ -19,6 +19,7 @@ jobs:
       TF_VAR_assume_role: ${{ secrets.TERRAFORM_ASSUME_ROLE }}
       TF_VAR_lambda: ${{ vars.TERRAFORM_LAMBDA }}
       TF_VAR_tags: ${{ vars.TERRAFORM_TAGS }}
+      TF_VAR_lambda_vpc_configs: ${{ vars.TERRAFORM_LAMBDA_VPC_CONFIGS }}
 
       # Backend Configuration Variables
       BACKEND_BUCKET: ${{ vars.TERRAFORM_BACKEND_BUCKET }}
@@ -131,6 +132,7 @@ jobs:
       TF_VAR_assume_role: ${{ secrets.TERRAFORM_ASSUME_ROLE }}
       TF_VAR_lambda: ${{ vars.TERRAFORM_LAMBDA }}
       TF_VAR_tags: ${{ vars.TERRAFORM_TAGS }}
+      TF_VAR_lambda_vpc_configs: ${{ vars.TERRAFORM_LAMBDA_VPC_CONFIGS }}
 
       # Backend Configuration Variables
       BACKEND_BUCKET: ${{ vars.TERRAFORM_BACKEND_BUCKET }}

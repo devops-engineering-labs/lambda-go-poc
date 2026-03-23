@@ -79,3 +79,8 @@ resource "aws_iam_role_policy_attachment" "sftp_broker_AWSLambdaBasicExecutionRo
   role       = aws_iam_role.sftp_broker_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
+
+resource "aws_iam_role_policy_attachment" "sftp_broker_AWSLambdaVPCAccessExecutionRole" {
+  role       = aws_iam_role.sftp_broker_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+}

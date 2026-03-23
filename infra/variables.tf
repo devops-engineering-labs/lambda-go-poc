@@ -15,6 +15,15 @@ variable "assume_role" {
   sensitive = true
 }
 
+variable "lambda_vpc_configs" {
+  description = "VPC configuration for the Lambda function, including the VPC ID and a list of private subnet IDs for application deployment."
+  type = object({
+    private_app_subnet_ids = list(string)
+    vpc_id                 = string
+  })
+  sensitive = false
+}
+
 variable "lambda" {
   description = "Configuration object for the AWS Lambda function, including runtime settings, resource allocation, and execution parameters."
   type = object({

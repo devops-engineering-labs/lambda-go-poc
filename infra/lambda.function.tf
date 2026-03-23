@@ -22,11 +22,17 @@ resource "aws_lambda_function" "sftp_broker" {
     size = var.lambda.ephemeral_storage.size
   }
 
+  vpc_config {
+    subnet_ids         = var.lambda_vpc_configs.private_app_subnet_ids
+    security_group_ids = [aws_security_group.lambda_sg.id]
+  }
+
   tags = var.tags
 
   depends_on = [
     aws_iam_role_policy.sftp_broker_s3_policy,
     aws_iam_role_policy.sftp_broker_secrets_policy,
-    aws_iam_role_policy_attachment.sftp_broker_AWSLambdaBasicExecutionRole
+    aws_iam_role_policy_attachment.sftp_broker_AWSLambdaBasicExecutionRole,
+    aws_iam_role_policy_attachment.sftp_broker_AWSLambdaVPCAccessExecutionRole
   ]
 }
